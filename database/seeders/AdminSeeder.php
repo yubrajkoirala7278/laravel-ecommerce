@@ -14,10 +14,11 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+       $user= User::create([
             'name'=>'Yubraj Koirala',
             'email'=>'yubrajkoirala7278@gmail.com',
             'password'=>Hash::make('12345678')
         ]);
+        $user->syncRoles('super_admin');
     }
 }

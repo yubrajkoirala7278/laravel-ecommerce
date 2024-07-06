@@ -305,7 +305,7 @@
             </li> --}}
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{route('category.index')}}">
                     <i class="fa-solid fa-list"></i>
                     <span>Category</span>
                 </a>

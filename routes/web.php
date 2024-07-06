@@ -3,20 +3,26 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// ====Auth====
+// ====Auth===============
 Auth::routes([
     'register'=>false,
 ]);
-// ====End of Auth===
+// ====End of Auth=======
 
 
-// ========Frontend============
+// ========Frontend==============
 require __DIR__.'/public.php';
-// =======End of Frontend=====
+// =======End of Frontend========
 
-// ===========Backend========
-Route::prefix('admin')->group(function(){
-    require __DIR__.'/admin.php';
+// ===========Backend============
+Route::middleware(['auth.admin'])->group(function(){
+    Route::prefix('admin')->group(function(){
+        require __DIR__.'/admin.php';
+    });
 });
 // =======end of Backend====
 
+
+// =====handle wrong url======
+Route::redirect('/{any}', '/', 301);
+//=======end of handling wrong url===

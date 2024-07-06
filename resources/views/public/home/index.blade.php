@@ -6,6 +6,5 @@ This is frontend
 
 @push('script')
   <script>
-    alert(1);
 </script>  
 @endpush

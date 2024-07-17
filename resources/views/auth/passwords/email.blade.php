@@ -1,33 +1,26 @@
 @extends('auth.layouts.app')
 @section('content')
-    <div class="card-body">
-
-        <div class="pt-4 pb-2">
-            <h5 class="card-title text-center pb-0 fs-4">Reset Password</h5>
-            <p class="text-center small">Enter email to reset your password</p>
-        </div>
-
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <form class="row g-3 needs-validation" method="POST" action="{{ route('password.email') }}">
+    <div class="card-body mb-3">
+        <p class="login-box-msg">Enter email to reset your password</p>
+        <form action="{{ route('password.email') }}" method="post">
             @csrf
-            <div class="col-12">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="email@gmail.com"
-                    value="{{ old('email') }}">
+            <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Email" name="email">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
                 @error('email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-
-            <div class="col-12">
-                <button class="btn btn-primary w-100" type="submit">Send Password Reset Link</button>
-            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send Password Reset Link</button>
         </form>
-
     </div>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
 @endsection

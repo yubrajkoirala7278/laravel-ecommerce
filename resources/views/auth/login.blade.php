@@ -1,45 +1,44 @@
 @extends('auth.layouts.app')
 @section('content')
     <div class="card-body">
-
-        <div class="pt-4 pb-2">
-            <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-            <p class="text-center small">Enter your email & password to login</p>
-        </div>
-
-        <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}">
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form action="{{ route('login') }}" method="post">
             @csrf
-            <div class="col-12">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="email@gmail.com"
-                    value="{{ old('email') }}">
-                @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="col-12">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="**********">
-                @error('password')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="col-12">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe"
-                        {{ old('remember') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
+            <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Email" name="email">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
                 </div>
             </div>
-            <div class="col-12">
-                <button class="btn btn-primary w-100" type="submit">Login</button>
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Password" name="password">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
             </div>
-            <div class="col-12">
-                <p class="small mb-0"><a href="{{ route('password.request') }}">Forget Your Password?</a></p>
+            <div class="row">
+                {{-- <div class="col-8">
+                <div class="icheck-primary">
+                    <input type="checkbox" name="remember" value="true" id="remember"
+                        {{ old('remember') ? 'checked' : '' }}>
+                    <label for="remember">
+                        Remember Me
+                    </label>
+                </div>
+            </div> --}}
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </div>
+                <!-- /.col -->
             </div>
         </form>
-
+        <p class="mb-1 mt-3">
+            <a href="{{ route('password.request') }}">I forgot my password</a>
+        </p>
     </div>
 @endsection

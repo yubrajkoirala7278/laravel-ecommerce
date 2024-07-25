@@ -14,7 +14,7 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-            <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('sub_category.store') }}">
                 @csrf
                 <div class="card">
                     <div class="card-body">
@@ -23,7 +23,7 @@
                                 <div class="mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Name" value="{{ old('name') }}"  oninput="generateSlug(this.value)">
+                                        placeholder="Name" value="{{ old('name') }}" oninput="generateSlug(this.value)">
                                     @error('name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -39,34 +39,36 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="image">Image</label>
-                                    <input type="file" name="image" id="image" class="form-control"
-                                        accept="image/*">
-                                    @error('image')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    <div id="imagePreview" class="mt-2">
-                                        <!-- Image preview will be shown here -->
-                                    </div>
-                                    <button type="button" id="removeImage" class="btn btn-danger btn-sm mt-2"
-                                        style="display: none;">Remove file</button>
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="status">Status</label>
                                     <select class="custom-select" name="status" id="status">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                     @error('status')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="category_id">Category</label>
+                                    <select class="custom-select" name="category_id" id="category_id">
+                                        @if (count($categories) > 0)
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    @error('category_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -79,40 +81,3 @@
     </section>
 @endsection
 
-@push('script')
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-
-            // ===========display the uploaded image instantly=====
-            $('#image').change(function() {
-                // Clear any previous image preview
-                $('#imagePreview').html('');
-                $('#removeImage').hide();
-
-                var file = this.files[0];
-                if (file) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var img = $('<img>').attr('src', e.target.result).css({
-                            'max-width': '100%',
-                            'max-height': '200px'
-                        });
-                        $('#imagePreview').html(img);
-                        $('#removeImage').show();
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            $('#removeImage').click(function() {
-                // Clear the file input and preview
-                $('#image').val('');
-                $('#imagePreview').html('');
-                $(this).hide();
-            });
-            // ===========end of displaying the uploaded image instantly=====
-
-        });
-    </script>
-@endpush

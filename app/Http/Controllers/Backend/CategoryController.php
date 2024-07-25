@@ -62,7 +62,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         try {
-            $this->categoryRepository->create($request->validated());
+            $this->categoryRepository->store($request->validated());
             return redirect()->route('category.index')->with('success','Category created successfully!');
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());

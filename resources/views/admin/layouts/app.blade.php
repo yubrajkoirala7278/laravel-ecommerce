@@ -105,13 +105,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('sub_category.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>Sub Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('brands.index')}}" class="nav-link">
                                 <svg class="h-6 nav-icon w-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -202,6 +202,13 @@
     @toastifyJs
     {{-- data table cdn --}}
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    {{-- generate slug --}}
+    <script>
+        function generateSlug(string) {
+            let slug = string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            document.getElementById('slug').value = slug;
+        }
+    </script>
     {{-- custom script --}}
     @stack('script')
 </body>

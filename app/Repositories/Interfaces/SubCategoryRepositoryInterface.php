@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Interfaces;
 
-Interface CategoryRepositoryInterface{
+Interface SubCategoryRepositoryInterface{
     public function all();
     public function store($request);
-    public function destroy($category);
+    public function destroy($SubCategory);
     public function update($request, $category);
+    public function getCategories();
 }

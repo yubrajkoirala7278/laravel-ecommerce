@@ -15,7 +15,7 @@ class CategoryRepository implements CategoryRepositoryInterface
       return $categories;
    }
 
-   public function create($request)
+   public function store($request)
    {
       // store single image in storage folder
       if (isset($request['image'])) {
@@ -26,6 +26,7 @@ class CategoryRepository implements CategoryRepositoryInterface
          // update the image name in the $request array
          $request['image'] = $imageName;
       }
+     
       // store in db
       Category::create($request);
    }

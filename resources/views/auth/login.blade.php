@@ -4,7 +4,7 @@
         <p class="login-box-msg">Sign in to start your session</p>
         <form action="{{ route('login') }}" method="post">
             @csrf
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <input type="email" class="form-control" placeholder="Email" name="email">
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -12,7 +12,12 @@
                     </div>
                 </div>
             </div>
-            <div class="input-group mb-3">
+            <div class="mb-3">
+                @error('email')
+                    <span class="text-danger mb-2">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="input-group">
                 <input type="password" class="form-control" placeholder="Password" name="password">
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -20,6 +25,11 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-3">
+            @error('password')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
             <div class="row">
                 {{-- <div class="col-8">
                 <div class="icheck-primary">

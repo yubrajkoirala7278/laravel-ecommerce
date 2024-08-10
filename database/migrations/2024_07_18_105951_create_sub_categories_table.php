@@ -19,7 +19,7 @@ return new class extends Migration
                     ->on('categories')
                     ->cascadeOnDelete()
                     ->cascadeOnUpdate();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->unique();
             $table->boolean('status')->default(true);
             $table->timestamps();

@@ -23,8 +23,13 @@ class SubCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required','string','max:255',Rule::unique('sub_categories','name')->ignore($this->slug)],
-            'slug'=>['required','string','max:255',Rule::unique('sub_categories','slug')->ignore($this->slug)],
+            'name'=>['required','string','max:255'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('sub_categories', 'slug')->ignore($this->route('subcategory')),
+            ],
             'status' => ['required', 'in:0,1'],
             'category_id'=>['required','integer']
         ];

@@ -52,7 +52,7 @@
                 "serverSide": true,
                 "deferRender": true,
                 "ordering": false,
-                searchDelay: 3000,
+                searchDelay: 2000,
                 "ajax": {
                     url: "{{ route('category.index') }}",
                     type: 'GET',

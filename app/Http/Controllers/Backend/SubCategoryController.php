@@ -96,9 +96,14 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SubCategoryRequest $request, SubCategory $subCategory)
     {
-        //
+        try{
+            $this->subCategoryRepository->update($request->validated(),$subCategory);
+            return redirect()->route('sub_category.index')->with('success','SubCategory updated successfully!');
+        }catch(\Throwable $th){
+            return back()->with('error',$th->getMessage());
+        }
     }
 
     /**

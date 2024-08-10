@@ -25,6 +25,7 @@ class SubCategoryRepository implements SubCategoryRepositoryInterface
 
     public function update($request, $category)
     {
+        $category->update($request);
     }
 
     public function getCategories()

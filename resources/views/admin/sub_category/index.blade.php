@@ -4,7 +4,7 @@
         <div class="container-fluid my-2">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Categories</h1>
+                    <h1>Sub Categories</h1>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{ route('sub_category.create') }}" class="btn btn-primary">New Sub Category</a>
@@ -52,7 +52,7 @@
                 "serverSide": true,
                 "deferRender": true,
                 "ordering": false,
-                searchDelay: 3000,
+                searchDelay: 2000,
                 "ajax": {
                     url: "{{ route('sub_category.index') }}",
                     type: 'GET',

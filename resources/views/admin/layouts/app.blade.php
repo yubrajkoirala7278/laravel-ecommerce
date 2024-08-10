@@ -18,6 +18,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     {{-- jquery cdn --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- ck editor --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+
+    {{-- There styles --}}
+    @yield('header-links')
 
     {{-- toastify css --}}
     @toastifyCss
@@ -111,7 +116,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('brands.index')}}" class="nav-link">
+                            <a href="{{ route('brands.index') }}" class="nav-link">
                                 <svg class="h-6 nav-icon w-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -122,7 +127,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('products.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tag"></i>
                                 <p>Products</p>
                             </a>
@@ -206,6 +211,9 @@
     <script>
         function generateSlug(string) {
             let slug = string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            let now = new Date();
+            let timestamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+            slug = `${slug}_${timestamp}`;
             document.getElementById('slug').value = slug;
         }
     </script>

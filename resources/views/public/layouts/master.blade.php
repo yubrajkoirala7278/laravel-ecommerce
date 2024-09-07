@@ -23,6 +23,11 @@
 
     <!-- Fav Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="#" />
+
+    {{-- price range slider range --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
+
 </head>
 
 <body data-instant-intensity="mousedown">
@@ -68,8 +73,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <!-- <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
-        </li> -->
+                         <a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
+                        </li> -->
                         @if (count($categories) > 0)
                             @foreach ($categories as $category)
                                 <li class="nav-item dropdown">

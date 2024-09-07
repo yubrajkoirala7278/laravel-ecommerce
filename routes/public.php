@@ -6,3 +6,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 Route::get('/shop',[ShopController::class,'index'])->name('frontend.shop');
+
+Route::get('/products',[ShopController::class,'products'])->name('frontend.products');

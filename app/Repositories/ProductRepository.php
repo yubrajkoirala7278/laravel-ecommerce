@@ -151,4 +151,8 @@ class ProductRepository implements ProductRepositoryInterface
          'products'=>$products
       ];
    }
+
+   public function products(){
+      dd('i am here');
+   }
 }

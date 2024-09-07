@@ -11,4 +11,5 @@ Interface ProductRepositoryInterface{
     public function requiredFrontendData();
     public function requiredShopData();
     public function categoryWithSubCategories();
+    public function products();
 }

@@ -17,7 +17,6 @@ class ShopController extends Controller
     public function index()
     {
         try {
-            $categories = $this->productRepository->categoryWithSubCategories();
             $requiredData = $this->productRepository->requiredFrontendData();
             $requiredShopData = $this->productRepository->requiredShopData();
             return view('public.shop.index', compact('requiredData', 'requiredShopData', 'categories'));
@@ -28,6 +27,7 @@ class ShopController extends Controller
     public function products(Request $request)
     {
         $query = Product::with('brand', 'category', 'subCategory');
+        
 
         // =======Apply search filter=======
         if ($request->search) {

@@ -14,6 +14,7 @@ Auth::routes([
 require __DIR__.'/public.php';
 // =======End of Frontend========
 
+
 // ===========Backend============
 Route::middleware(['auth.admin'])->group(function(){
     Route::prefix('admin')->group(function(){

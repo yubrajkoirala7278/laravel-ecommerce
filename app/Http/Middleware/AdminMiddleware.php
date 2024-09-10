@@ -24,6 +24,6 @@ class AdminMiddleware
             return $next($request);
         }
         Auth::logout();
-        return redirect()->route('login')->with('error',"You don't have right to access this page");
+        return redirect()->route('frontend.home')->with('error',"You don't have right to access this page");
     }
 }

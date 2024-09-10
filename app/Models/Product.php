@@ -31,4 +31,8 @@ class Product extends Model
     {
         return $this->belongsTo(SubCategory::class);
     }
+
+    public function images(){
+        return $this->morphMany(Image::class,'model');
+    }
 }

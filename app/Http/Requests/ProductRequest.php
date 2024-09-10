@@ -36,6 +36,8 @@ class ProductRequest extends FormRequest
             'qty'=>['required'],
             'status' => ['required', 'in:0,1'],
             'image' => $this->getMethod() == 'POST' ? ['required', 'image'] : ['nullable', 'sometimes', 'image'],
+             'images' =>$this->isMethod('POST') ? [' required'] : ['nullable'],
+           'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

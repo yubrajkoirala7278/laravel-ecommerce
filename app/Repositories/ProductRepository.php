@@ -6,11 +6,18 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
 
 class ProductRepository implements ProductRepositoryInterface
 {
+   private $imageRepository;
+
+   public function __construct(ImageRepositoryInterface $imageRepository)
+   {
+      $this->imageRepository = $imageRepository;
+   }
 
    public function all()
    {
@@ -29,8 +36,9 @@ class ProductRepository implements ProductRepositoryInterface
       }
 
 
+
       // store in db
-      Product::create([
+      $product = Product::create([
          'title' => $request['title'],
          'slug' => $request['slug'],
          'description' => $request['description'],
@@ -45,13 +53,24 @@ class ProductRepository implements ProductRepositoryInterface
          'status' => $request['status'],
          'image' => $imageName
       ]);
+
+      if (isset($request['images'])) {
+         $this->imageRepository->addImages($product, $request['images'], 'product');
+      }
+
    }
 
    public function destroy($product)
    {
+      $product = Product::with('images')->find($product->id);
+      if (!empty($product['images'])) {
+         $this->imageRepository->deleteImages($product['images']);
+     }
       if (isset($product->image)) {
          Storage::delete('public/images/products/' . $product->image);
       }
+      $product = Product::with('image')->find($product->id);
+
       $product->delete();
    }
 
@@ -109,7 +128,7 @@ class ProductRepository implements ProductRepositoryInterface
       return $categories_with_subCategories;
    }
 
-   
+
 
    public function requiredFrontendData()
    {
@@ -143,16 +162,17 @@ class ProductRepository implements ProductRepositoryInterface
 
       $brands = Brand::latest()->get();
 
-      $products=Product::where('status',1)->latest()->paginate(10);
+      $products = Product::where('status', 1)->latest()->paginate(10);
 
       return [
          'categories' => $categories,
          'brands' => $brands,
-         'products'=>$products
+         'products' => $products
       ];
    }
 
-   public function products(){
+   public function products()
+   {
       dd('i am here');
    }
 }

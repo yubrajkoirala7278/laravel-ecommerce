@@ -65,9 +65,18 @@
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h2 class="h4 mb-3">Media</h2>
+                                <h2 class="h4 mb-3">Featured Image</h2>
                                 <input class="form-control" type="file" name="image" id="">
                                 @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h2 class="h4 mb-3">Images</h2>
+                                <input class="form-control" type="file" name="images[]"  multiple id="">
+                                @error('images')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

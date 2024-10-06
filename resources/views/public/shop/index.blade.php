@@ -236,16 +236,16 @@
                                     <div class="col-4">
                                         <div class="card product-card">
                                             <div class="product-image position-relative">
-                                                <a href="" class="product-img">
+                                                <a href="/product/${product.slug}" class="product-img">
                                                     <img class="card-img-top" 
                                                     src="{{ asset('storage/images/products/') }}/${product.image}" alt="" style="height:300px">
                                                 </a>
                                                 <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
                                             
-                                                <div class="product-action">
-                                                    <a class="btn btn-dark" href="#">
-                                                        <i class="fa fa-shopping-cart"></i> Add To Cart
-                                                    </a>
+                                               <div class="product-action">
+                                                <button class="btn btn-dark add-to-cart-btn" data-id="${product.id}">
+                                                    <i class="fa fa-shopping-cart"></i> Add To Cart
+                                                </button>
                                                 </div>
                                             </div>
                                             <div class="card-body text-center mt-3">

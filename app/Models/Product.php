@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
         'title', 'slug', 'description', 'price', 'compare_price',
-        'category_id', 'sub_category_id', 'brand_id', 'is_featured', 'track_qty', 'qty', 'status','image'
+        'category_id', 'sub_category_id', 'brand_id', 'is_featured', 'track_qty', 'qty', 'status','image','shipping_returns','max_item_add_to_cart'
     ];
 
     public function getRouteKeyName()

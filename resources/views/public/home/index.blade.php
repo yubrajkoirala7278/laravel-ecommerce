@@ -19,7 +19,8 @@
                                 <h1 class="display-4 text-white mb-3">Kids Fashion</h1>
                                 <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet
                                     amet amet ndiam elitr ipsum diam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{route('frontend.shop')}}">Shop Now</a>
+                                <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{ route('frontend.shop') }}">Shop
+                                    Now</a>
                             </div>
                         </div>
                     </div>
@@ -36,7 +37,8 @@
                                 <h1 class="display-4 text-white mb-3">Womens Fashion</h1>
                                 <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet
                                     amet amet ndiam elitr ipsum diam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{route('frontend.shop')}}">Shop Now</a>
+                                <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{ route('frontend.shop') }}">Shop
+                                    Now</a>
                             </div>
                         </div>
                     </div>
@@ -54,7 +56,8 @@
                                 <h1 class="display-4 text-white mb-3">Shop Online at Flat 70% off on Branded Clothes</h1>
                                 <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet
                                     amet amet ndiam elitr ipsum diam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{route('frontend.shop')}}">Shop Now</a>
+                                <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{ route('frontend.shop') }}">Shop
+                                    Now</a>
                             </div>
                         </div>
                     </div>
@@ -112,8 +115,8 @@
                             <div class="col-lg-3">
                                 <div class="cat-card">
                                     <div class="left">
-                                        <img src="{{ asset('storage/images/category/' . $category->image) }}" alt=""
-                                            class="img-fluid" loading="lazy">
+                                        <img src="{{ asset('storage/images/category/' . $category->image) }}"
+                                            alt="" class="img-fluid" loading="lazy">
                                     </div>
                                     <div class="right">
                                         <div class="cat-data">
@@ -141,15 +144,18 @@
                             <div class="col-md-3">
                                 <div class="card product-card">
                                     <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top"
+                                        <a href="{{ route('frontend.product', $product->slug) }}"
+                                            class="product-img"><img class="card-img-top"
                                                 src="{{ asset('storage/images/products/' . $product->image) }}"
                                                 alt="" loading="lazy"></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+                                        <a class="whishlist" href="javascript:void(0);" data-id="{{ $product->id }}">
+                                            <i class="far fa-heart"></i>
+                                        </a>
 
                                         <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
+                                            <button class="btn btn-dark add-to-cart-btn" data-id="{{ $product->id }}">
                                                 <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="card-body text-center mt-3">
@@ -181,22 +187,26 @@
                             <div class="col-md-3">
                                 <div class="card product-card">
                                     <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top"
-                                            src="{{ asset('storage/images/products/' . $product->image) }}" alt="" loading="lazy"></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
+                                        <a href="{{ route('frontend.product', $product->slug) }}"
+                                            class="product-img"><img class="card-img-top"
+                                                src="{{ asset('storage/images/products/' . $product->image) }}"
+                                                alt="" loading="lazy"></a>
+                                        <a class="whishlist" href="javascript:void(0);" data-id="{{ $product->id }}">
+                                            <i class="far fa-heart"></i>
+                                        </a>
                                         <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
+                                            <button class="btn btn-dark add-to-cart-btn" data-id="{{ $product->id }}">
                                                 <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">{{$product->title}}</a>
+                                        <a class="h6 link" href="product.php">{{ $product->title }}</a>
                                         <div class="price mt-2">
-                                            <span class="h5"><strong>Rs. {{$product->price}}</strong></span>
-                                            @if($product->compare_price)
-                                            <span class="h6 text-underline"><del>Rs. {{$product->compare_price}}</del></span>
+                                            <span class="h5"><strong>Rs. {{ $product->price }}</strong></span>
+                                            @if ($product->compare_price)
+                                                <span class="h6 text-underline"><del>Rs.
+                                                        {{ $product->compare_price }}</del></span>
                                             @endif
                                         </div>
                                     </div>
@@ -208,4 +218,65 @@
             </div>
         </section>
     </main>
+
+    {{-- modal --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Success</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert" id="product_name">
+                    loading..
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('.whishlist').click(function(e) {
+            e.preventDefault();
+
+            var productId = $(this).data('id');
+
+            $.ajax({
+                url: '/add-to-wishlist/' + productId,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Display a success message in the modal
+                    document.getElementById('product_name').innerText = `"${response.product_name}" has been added to your wishlist.`;
+                    $('#exampleModal').modal('show');
+                },
+                error: function(xhr) {
+                    // Display different error messages based on the status code
+                    if (xhr.status === 401) {
+                        // Unauthorized: User not logged in
+                        toastify().error('Please log in to add to your wishlist!');
+                    } else if (xhr.status === 400) {
+                        // Bad request: Product already in wishlist
+                        toastify().error('This product is already in your wishlist!');
+                    } else {
+                        // Other errors
+                        toastify().error('An error occurred. Please try again later.');
+                    }
+                }
+            });
+
+        });
+    });
+</script>
+
 @endsection

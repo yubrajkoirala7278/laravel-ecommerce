@@ -70,8 +70,18 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th width="60">Image</th>
+                                <th width="60">Featured Image</th>
                                 <td><img src="{{asset('storage/images/products/'.$product->image)}}" alt="{{$product->image}}" style="height: 200px"></td>
+                            </tr>
+                            <tr>
+                                <th width="60">Images</th>
+                                <td>
+                                    @if(count($product->images)>0)
+                                        @foreach ($product->images as $img)
+                                        <img src="{{asset('storage/images/product/'.$img->filename)}}" alt="{{$img->filename}}" style="max-height: 200px" loading="lazy" >
+                                        @endforeach
+                                    @endif
+                                </td>
                             </tr>
                     </table>
                 </div>

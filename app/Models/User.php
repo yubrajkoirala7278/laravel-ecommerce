@@ -21,6 +21,10 @@ class User extends Authenticatable
         Mail::to($this->email)->send(new ResetPasswordMail($token,$this->email));
     }
 
+    public function customer_address(){
+        return $this->hasOne(CustomerAddress::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('description');
-            $table->string('price');
-            $table->string('compare_price')->nullable();
+            $table->integer('price');
+            $table->integer('compare_price')->nullable();
             $table->string('image');
 
             $table->unsignedBigInteger('category_id');
@@ -33,6 +33,8 @@ return new class extends Migration
             $table->boolean('track_qty')->default(true);
             $table->integer('qty');
             $table->integer('status')->default(1);
+            $table->longText('shipping_returns');
+            $table->integer('max_item_add_to_cart')->default(5);
             $table->timestamps();
         });
     }

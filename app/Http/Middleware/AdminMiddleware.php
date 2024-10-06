@@ -22,6 +22,8 @@ class AdminMiddleware
         $user=Auth::user();
         if($user->hasRole(['super_admin','admin'])){
             return $next($request);
+        }else if($user->hasRole(['user'])){
+            return redirect()->route('frontend.home')->with('success','Login success!');
         }
         Auth::logout();
         return redirect()->route('frontend.home')->with('error',"You don't have right to access this page");

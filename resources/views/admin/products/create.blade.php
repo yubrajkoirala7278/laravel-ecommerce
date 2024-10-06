@@ -60,13 +60,23 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="shipping_returns">Shipping and Returns</label>
+                                            <textarea class="form-control" id="shipping_content" rows="5" cols="4"
+                                                name="shipping_returns" placeholder="Enter the shipping and returns protocol">{{old('shipping_returns')}}</textarea>
+                                            @error('shipping_returns')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h2 class="h4 mb-3">Featured Image</h2>
-                                <input class="form-control" type="file" name="image" id="">
+                                <input class="form-control" type="file" name="image" id="" accept="image/*">
                                 @error('image')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -75,7 +85,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h2 class="h4 mb-3">Images</h2>
-                                <input class="form-control" type="file" name="images[]"  multiple id="">
+                                <input class="form-control" type="file" name="images[]"  multiple id="" accept="image/*">
                                 @error('images')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -130,6 +140,16 @@
                                             <input type="number" min="0" name="qty" id="qty"
                                                 class="form-control" placeholder="Qty" value="{{ old('qty') }}">
                                             @error('qty')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="max_item_add_to_cart">Max Item (user can add on cart)</label>
+                                            <input type="number" name="max_item_add_to_cart" id="max_item_add_to_cart" class="form-control"
+                                                placeholder="Max item to be add on cart" value="{{ old('max_item_add_to_cart') }}">
+                                            @error('max_item_add_to_cart')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -249,6 +269,17 @@
             //     console.log('Available plugins:', ClassicEditor.builtinPlugins.map(plugin => plugin
             //         .pluginName));
             // })
+            .catch(error => {
+                console.error(error.stack);
+            });
+    </script>
+     <script>
+        ClassicEditor
+            .create(document.querySelector('#shipping_content'), {
+                removePlugins: ['Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload',
+                    'Indent', 'ImageUpload', 'MediaEmbed'
+                ],
+            })
             .catch(error => {
                 console.error(error.stack);
             });

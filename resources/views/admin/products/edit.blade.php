@@ -61,14 +61,33 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="shipping_returns">Shipping and Returns</label>
+                                            <textarea class="form-control" id="shipping_content"  rows="5" cols="4"
+                                                name="shipping_returns">{{old('shipping_returns',$product->shipping_returns)}}</textarea>
+                                            @error('shipping_returns')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h2 class="h4 mb-3">Media</h2>
-                                <input class="form-control" type="file" name="image" id="">
+                                <h2 class="h4 mb-3">Featured Image</h2>
+                                <input class="form-control" type="file" name="image" id="" accept="image/*">
                                 @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h2 class="h4 mb-3">Images</h2>
+                                <input class="form-control" type="file" name="images[]"  multiple id="" accept="image/*">
+                                @error('images')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -267,6 +286,17 @@
             //     console.log('Available plugins:', ClassicEditor.builtinPlugins.map(plugin => plugin
             //         .pluginName));
             // })
+            .catch(error => {
+                console.error(error.stack);
+            });
+    </script>
+     <script>
+        ClassicEditor
+            .create(document.querySelector('#shipping_content'), {
+                removePlugins: ['Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload',
+                    'Indent', 'ImageUpload', 'MediaEmbed'
+                ],
+            })
             .catch(error => {
                 console.error(error.stack);
             });

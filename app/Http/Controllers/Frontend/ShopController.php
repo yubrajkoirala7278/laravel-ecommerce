@@ -19,7 +19,7 @@ class ShopController extends Controller
         try {
             $requiredData = $this->productRepository->requiredFrontendData();
             $requiredShopData = $this->productRepository->requiredShopData();
-            return view('public.shop.index', compact('requiredData', 'requiredShopData', 'categories'));
+            return view('public.shop.index', compact('requiredData', 'requiredShopData'));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

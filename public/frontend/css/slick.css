@@ -117,3 +117,46 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
+
+.cart-icon {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #000; /* Default color for the icon */
+}
+
+.cart-icon:hover {
+    color: #007bff; /* Change color on hover (Bootstrap primary color) */
+}
+
+.cart-badge {
+    position: absolute;
+    top: -10px;   /* Adjust as per your design */
+    right: -10px; /* Adjust to align the badge properly */
+    background-color: #dc3545; /* Bootstrap danger color for the badge */
+    color: white;
+    padding: 2px 9px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    min-width: 20px;
+}
+
+.cart-badge::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cart-icon .fa-cart-shopping {
+    font-size: 24px; /* Adjust the size of the cart icon */
+}
+
+.cart-badge.hidden {
+    display: none;
+}
+

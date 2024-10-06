@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{-- csrf token --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
     {{-- data table css link --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     {{-- jquery cdn --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      {{-- csrf token --}}
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
     {{-- ck editor --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
@@ -134,20 +134,20 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('shipping.index')}}" class="nav-link">
                                 <!-- <i class="nav-icon fas fa-tag"></i> -->
                                 <i class="fas fa-truck nav-icon"></i>
                                 <p>Shipping</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('admin.orders')}}" class="nav-link">
                                 <i class="nav-icon fas fa-shopping-bag"></i>
                                 <p>Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('coupon_discount.index')}}" class="nav-link">
                                 <i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
                                 <p>Discount</p>
                             </a>

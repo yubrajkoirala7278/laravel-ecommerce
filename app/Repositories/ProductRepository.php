@@ -35,13 +35,12 @@ class ProductRepository implements ProductRepositoryInterface
          $request['image']->storeAs('public/images/products', $imageName);
       }
 
-
-
       // store in db
       $product = Product::create([
          'title' => $request['title'],
          'slug' => $request['slug'],
          'description' => $request['description'],
+         'shipping_returns' => $request['shipping_returns'],
          'price' => $request['price'],
          'compare_price' => $request['compare_price'] ? $request['compare_price'] : null,
          'category_id' => $request['category'],
@@ -51,7 +50,8 @@ class ProductRepository implements ProductRepositoryInterface
          'track_qty' => $request['track_qty'],
          'qty' => $request['qty'],
          'status' => $request['status'],
-         'image' => $imageName
+         'image' => $imageName,
+         'max_item_add_to_cart'=>$request['max_item_add_to_cart']??5
       ]);
 
       if (isset($request['images'])) {
@@ -69,13 +69,13 @@ class ProductRepository implements ProductRepositoryInterface
       if (isset($product->image)) {
          Storage::delete('public/images/products/' . $product->image);
       }
-      $product = Product::with('image')->find($product->id);
 
       $product->delete();
    }
 
    public function update($request, $product)
    {
+      // store single image
       $imageName = null;
       if (isset($request['image'])) {
          // Delete the old image from storage folder
@@ -90,6 +90,7 @@ class ProductRepository implements ProductRepositoryInterface
          'title' => $request['title'],
          'slug' => $request['slug'],
          'description' => $request['description'],
+         'shipping_returns' => $request['shipping_returns'],
          'price' => $request['price'],
          'compare_price' => $request['compare_price'] ? $request['compare_price'] : null,
          'category_id' => $request['category'],
@@ -101,6 +102,9 @@ class ProductRepository implements ProductRepositoryInterface
          'status' => $request['status'],
          'image' => $imageName ? $imageName : $product->image,
       ]);
+      if (!empty($request['images'])) {
+         $this->imageRepository->updateImages($product, $request['images'], 'product',true);
+     }
    }
 
    public function requiredData()

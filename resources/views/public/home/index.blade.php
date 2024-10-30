@@ -195,9 +195,16 @@
                                             <i class="far fa-heart"></i>
                                         </a>
                                         <div class="product-action">
-                                            <button class="btn btn-dark add-to-cart-btn" data-id="{{ $product->id }}">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </button>
+                                            @if ($product->track_qty == true && $product->qty == 0)
+                                                <button class="btn btn-danger">
+                                                    <i class="fa fa-shopping-cart"></i> Out of Stock
+                                                </button>
+                                            @else
+                                                <button class="btn btn-dark add-to-cart-btn"
+                                                    data-id="{{ $product->id }}">
+                                                    <i class="fa fa-shopping-cart"></i> Add To Cart
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="card-body text-center mt-3">
@@ -222,61 +229,61 @@
     {{-- modal --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Success</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Success</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert" id="product_name">
+                        loading..
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div class="alert alert-success" role="alert" id="product_name">
-                    loading..
-                  </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
         </div>
-      </div>
-      
+    </div>
+
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function() {
-        $('.whishlist').click(function(e) {
-            e.preventDefault();
+    <script>
+        $(document).ready(function() {
+            $('.whishlist').click(function(e) {
+                e.preventDefault();
 
-            var productId = $(this).data('id');
+                var productId = $(this).data('id');
 
-            $.ajax({
-                url: '/add-to-wishlist/' + productId,
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    // Display a success message in the modal
-                    document.getElementById('product_name').innerText = `"${response.product_name}" has been added to your wishlist.`;
-                    $('#exampleModal').modal('show');
-                },
-                error: function(xhr) {
-                    // Display different error messages based on the status code
-                    if (xhr.status === 401) {
-                        // Unauthorized: User not logged in
-                        toastify().error('Please log in to add to your wishlist!');
-                    } else if (xhr.status === 400) {
-                        // Bad request: Product already in wishlist
-                        toastify().error('This product is already in your wishlist!');
-                    } else {
-                        // Other errors
-                        toastify().error('An error occurred. Please try again later.');
+                $.ajax({
+                    url: '/add-to-wishlist/' + productId,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        // Display a success message in the modal
+                        document.getElementById('product_name').innerText =
+                            `"${response.product_name}" has been added to your wishlist.`;
+                        $('#exampleModal').modal('show');
+                    },
+                    error: function(xhr) {
+                        // Display different error messages based on the status code
+                        if (xhr.status === 401) {
+                            // Unauthorized: User not logged in
+                            toastify().error('Please log in to add to your wishlist!');
+                        } else if (xhr.status === 400) {
+                            // Bad request: Product already in wishlist
+                            toastify().error('This product is already in your wishlist!');
+                        } else {
+                            // Other errors
+                            toastify().error('An error occurred. Please try again later.');
+                        }
                     }
-                }
+                });
+
             });
-
         });
-    });
-</script>
-
+    </script>
 @endsection

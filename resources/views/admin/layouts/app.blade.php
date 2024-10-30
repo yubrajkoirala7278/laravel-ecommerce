@@ -153,13 +153,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('admin.users')}}" class="nav-link">
                                 <i class="nav-icon  fas fa-users"></i>
                                 <p>Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('page.index')}}" class="nav-link">
                                 <i class="nav-icon  far fa-file-alt"></i>
                                 <p>Pages</p>
                             </a>

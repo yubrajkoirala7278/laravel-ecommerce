@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\StaticPage;
 use App\Models\Wishlist;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -59,4 +60,25 @@ class HomeController extends Controller
             return response()->json(['error' => $th->getMessage()], 500);
         }
     }
+
+    public function aboutUs()
+    {
+        try {
+            $content=StaticPage::where('slug','about-page_20241027223239')->first();
+            return view('public.about.index',compact('content'));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function termsAndConditions()
+    {
+        try {
+            $content=StaticPage::where('slug','terms-and-conditions-page_20241027223347')->first();
+            return view('public.terms_and_conditions.index',compact('content'));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
 }

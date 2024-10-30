@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\OrderPlaced;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Cart;
@@ -10,6 +11,7 @@ use App\Models\CustomerAddress;
 use App\Models\DiscountCoupon;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\ShippingCharge;
 use App\Models\UserCoupon;
 use Illuminate\Http\Request;
@@ -42,7 +44,7 @@ class CheckoutController extends Controller
         try {
             //   save user addresses to database
             $user = Auth::user();
-            CustomerAddress::updateOrCreate(
+            $customerAddress=CustomerAddress::updateOrCreate(
                 ['user_id' => $user->id],
                 [
                     'user_id' => $user->id,
@@ -62,7 +64,7 @@ class CheckoutController extends Controller
             //  save order details to database
             if ($request->payment_method == 'cod') {
                 $countryName = CustomerAddress::where('user_id', Auth::user()->id)->value('country_name');
-                $shippingCharge = ShippingCharge::where('country_name', $countryName)->value('amount');
+                $shippingCharge = ShippingCharge::where('country_name', $countryName)->value('amount')??0;
                 $couponId = UserCoupon::where('user_id', Auth::user()->id)->latest()->value('coupon_id');
                 $couponDiscount=DiscountCoupon::where('id',$couponId)->latest()->value('discount_amount')??0;
                 $subTotal = Cart::with('product')
@@ -101,11 +103,21 @@ class CheckoutController extends Controller
                         'price' => $cart->product->price,
                         'total' => $cart->cart_count*$cart->product->price+$shippingCharge-$couponDiscount,
                     ]);
+                    $product=Product::where('id',$cart->product_id)->first();
+                    if($product->track_qty==true){
+                        $product->update(
+                            [
+                                'qty'=>$product->qty-$cart->cart_count
+                            ]
+                        );
+                    }
+                    
                 }
+                event(new OrderPlaced($customerAddress,$carts,$shippingCharge,$subTotal,$couponDiscount,$totalCharge));
                 Cart::where('user_id', Auth::user()->id)->delete();
                 return view('public.checkout.order_success');
             } else {
-                dd('djoidu');
+                dd('pay with card');
             }
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());

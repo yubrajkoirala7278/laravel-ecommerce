@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ContactFormSubmitted;
+use App\Events\OrderPlaced;
+use App\Listeners\NotifyUser;
+use App\Listeners\SendContactFormEmail;
 use App\Repositories\BrandRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ImageRepository;
@@ -12,6 +16,7 @@ use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\SubCategoryRepositoryInterface;
 use App\Repositories\ProductRepository;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Event;
 use App\Repositories\SubCategoryRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,5 +40,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
+        Event::listen(
+            OrderPlaced::class,
+            NotifyUser::class,
+            ContactFormSubmitted::class,
+            SendContactFormEmail::class,
+        );
     }
 }

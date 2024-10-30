@@ -30,8 +30,10 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->enum('is_featured',['Yes','No'])->default('Yes');
-            $table->boolean('track_qty')->default(true);
-            $table->integer('qty');
+
+            $table->boolean('track_qty')->default(false);
+            $table->integer('qty')->nullable();
+            
             $table->integer('status')->default(1);
             $table->longText('shipping_returns');
             $table->integer('max_item_add_to_cart')->default(5);
